@@ -19,8 +19,10 @@ $(function() {
       console.log('CORRECTION:', data)
       session.tasks[taskId] = data.id
 
-      const pollResult = function() {
-        console.log('POLLING:', data.id)
+      console.log("SHOWING...");
+      $(`.task_button[task-id=${taskId}]`).find('.lds-heart').show();
+      const pollResult = function () {
+        console.log('POLLING:', data.id);
         const resultRequest = {
           async: true,
           crossDomain: true,
@@ -50,13 +52,10 @@ $(function() {
             /* Append data to task list element */
             $('.task_button').each(function(index) {
               if ($(this).attr('task-id') === data.task_id.toString()) {
-                $(this)
-                  .children()
-                  .remove()
-                $(this).append(
-                  `<div><i>Requirements:</i> ${requirementsStr}</div>`
-                )
-                $(this).append(`<div><i>Outputs:</i> ${outputsStr}</div>`)
+                $(`.task_button[task-id=${taskId}]`).find('.lds-heart').hide();
+                $(this).children('.results').remove();
+                $(this).append(`<div class="results"><i>Requirements: ${requirementsStr}</i></div>`);
+                $(this).append(`<div class="results"><i>Outputs: ${outputsStr}</i></div>`);
               }
             })
           }
@@ -91,7 +90,6 @@ $(function() {
     $.ajax(authenticationRequest)
       .done(function(data) {
         console.log('AUTH:', data)
-
         if (data.auth_token) {
           session.auth_token = data.auth_token
           setTimeout(() => $('div#showing').show(), 200)
@@ -122,9 +120,7 @@ $(function() {
       )
       // $('#tasks_header').html(data.name);
       for (const task of data.tasks) {
-        $('.tasks_container').append(
-          `<button type="button" class="list-group-item list-group-item-action task_button" task-id='${task.id}'>${task.title}</button>`
-        )
+        $('.tasks_container').append(`<button type="button" class="list-group-item list-group-item-action task_button" task-id='${task.id}'>${task.title}<div style="float: right; display: none;" class="lds-heart"><div></div></div></button>`);
       }
     })
   })
