@@ -43,8 +43,12 @@ $(function () {
       "url": `https://cors-anywhere.herokuapp.com/https://intranet.hbtn.io/projects/${pid}.json?auth_token=${session.auth_token}`,
       "method": "GET",
     }
-    $.ajax(request).done(function (response) {
-      console.log("PROJECTS:", response);
+    $.ajax(request).done(function (data) {
+      console.log("PROJECTS:", data);
+      $('#task_header').html(data.name);
+      for (const task of data.tasks) {
+        $('#task_list').append(`<li>${task.title}</li>`);
+      }
     });
   });
 
