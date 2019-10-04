@@ -2429,3 +2429,14 @@ fieldset[disabled] .btn-neutral.active {
 #danger {
   margin-left: 38%;
 }
+
+#task_header {
+  text-align: center;
+  font-size: larger;
+  background-color: slategrey;
+  border: slategrey;
+}
+
+#task_header:hover {
+  background-color: #EB5E28;
+}
