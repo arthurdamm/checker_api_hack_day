@@ -6,11 +6,12 @@ $(function () {
 
   $('button#login_button').click(function () {
     console.log('LOGIN');
-    const json = {};
-    json.api_key = '96a4134e30845c1fe3ed6e016f19e423';
-    json.email = $('input[name=email]').val();
-    json.password = $('input[name=password]').val();
-    json.scope = 'checker';
+    const json = {
+      api_key: '96a4134e30845c1fe3ed6e016f19e423',
+      email: $('input[name=email]').val(),
+      password: $('input[name=password]').val(),
+      scope: 'checker'
+    };
 
     const authenticationRequest = {
       async: true,
@@ -43,7 +44,7 @@ $(function () {
       $('#task_header').html(data.name);
       $('#task_list').empty();
       for (const task of data.tasks) {
-        $('#task_list').append(`<li class='task' task-id='${task.id}''>${task.title}</li>`);
+        $('#task_list').append(`<li class='task' task-id='${task.id}'>${task.title}</li>`);
       }
     });
   });
