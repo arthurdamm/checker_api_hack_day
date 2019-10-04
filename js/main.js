@@ -63,15 +63,24 @@ $(function () {
       console.log('CORRECTION:', data);
       session.tasks[taskId] = data.id;
 
-      const resultRequest = {
-        async: true,
-        crossDomain: true,
-        url: `https://cors-anywhere.herokuapp.com/https://intranet.hbtn.io/correction_requests/${data.id}.json?auth_token=${session.auth_token}`,
-        method: 'GET'
+      const pollResult = function () {
+        console.log('POLLING:', data.id);
+        const resultRequest = {
+          async: true,
+          crossDomain: true,
+          url: `https://cors-anywhere.herokuapp.com/https://intranet.hbtn.io/correction_requests/${data.id}.json?auth_token=${session.auth_token}`,
+          method: 'GET'
+        };
+        $.ajax(resultRequest).done(function (data) {
+          console.log('POLL RESULT:', data);
+          if (data.status !== 'Done') {
+            setTimeout(pollResult, 2000);
+          } else {
+            console.log('POLL DONE!');
+          }
+        });
       };
-      $.ajax(resultRequest).done(function (data) {
-        console.log('RESULT:', data);
-      });
+      pollResult();
     });
   });
 });
