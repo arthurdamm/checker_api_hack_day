@@ -1,4 +1,4 @@
-# Checker API hack day: Checkermate v 0.01
+# Checker API hack day: Checkerbuddy v 0.01
 Hack Day #2. Building an app using Holberton school API
 ## The project
 By team of ~8, you are free to build what you want, it just needs to be related to Holberton and the Checker. You are starting now until tomorrow night.
@@ -74,6 +74,199 @@ $ curl -XGET https://intranet.hbtn.io/users/me.json?auth_token=0123456789abcdef 
 }
 $
 ```
+### Get a project
+URL: `GET /projects/:id.json`
+Parameters:
+*auth_token: from the authentication request
+*:id: ID of the project (part of the URL)
+*Rate limit: 100 requests per hour
+__Result:__
+*Hash:
+*id: project ID
+*name: project name
+*track_id: track ID
+*created_at: when this project has been created
+*updated_at: when this project has been updated
+*tasks: array of hashes:
+*id: task ID
+*title: task title
+*position: task position
+*checker_available: true if the Checker is available for this task - otherwise false (= manual review needed)
+*github_repo: Github repository to use
+*github_dir: Github directory to use
+*github_file: Github file to use
+__Example:__
+```
+$ curl -XGET https://intranet.hbtn.io/projects/434.json?auth_token=0123456789abcdef -H "Content-Type: application/json"
+{
+    "id": 434,
+    "name": "Hack day: Checker challenge!",
+    "track_id": 6,
+    "created_at": "2018-04-24T01:29:24.000Z",
+    "updated_at": "2019-10-02T21:01:17.000Z",
+    "tasks": [
+        {
+            "id": 3433,
+            "title": "Evaluation",
+            "position": 1,
+            "checker_available": false,
+            "github_repo": "",
+            "github_dir": "",
+            "github_file": ""
+        }
+    ]
+}
+$
+```
+### Get a task
+URL: `GET /tasks/:id.json`
+__Parameters:__
+* auth_token: from the authentication request
+* :id: ID of the task (part of the URL)
+* Rate limit: 100 requests per hour
+__Result:__
+Hash:
+* id: task ID
+*title: task title
+* project_id: project ID
+* created_at: when this project has been created
+* updated_at: when this project has been updated
+* github_repo: Github repository to use
+* github_dir: Github directory to use
+* github_file: Github file to use
+* position: position of this task in the project
+* checker_available: true if the Checker is available for this task - otherwise false (= manual review needed)
+__Example:__
+```
+$ curl -XGET https://intranet.hbtn.io/tasks/1007.json?auth_token=0123456789abcdef -H "Content-Type: application/json"
+{
+    "id": 1007,
+    "title": "Run Python file",
+    "github_repo": "holbertonschool-higher_level_programming",
+    "github_dir": "0x00-python-hello_world",
+    "github_file": "0-run",
+    "position": 1,
+    "project_id": 231,
+    "created_at": "2018-05-08T04:25:53.000Z",
+    "updated_at": "2019-09-30T04:34:50.000Z",
+    "checker_available":true
+}
+$
+```
+### Request a correction
+URL: `POST /tasks/:id/start_correction.json`
+__Parameters:__
+* auth_token: from the authentication request
+* :id: ID of the task (part of the URL)
+* Rate limit: 30 requests per hour
+* Result:
+* Hash:
+* id: correction request ID - if the value of id is null or 0, it means the correction can’t be queued
+__Example:__
+```
+$ curl -XPOST https://intranet.hbtn.io/tasks/1007/start_correction.json?auth_token=0123456789abcdef -H "Content-Type: application/json" -d ""
+{
+    "id": 1408957
+}
+$
+```
+### Get a correction result
+URL: `GET /correction_requests/:id.json`
+__Parameters:__
+* auth_token: from the authentication request
+* :id: ID of the correction request (part of the URL)
+* Rate limit: 1000 requests per hour
+__Result:__
+Hash:
+* id: correction request ID
+* user_id: requester user ID
+* task_id: task ID corrected
+* request_type: always “Test review” for you :-)
+* status: 3 potential statuses:
+* “Sent”: in process
+* “Fail”: something happened
+* “Done”: correction ready
+* created_at: when the correction has been requested
+* updated_at: when the correction has been updated
+* result_display: hash of the result:
+* error: error message
+* info: information message
+* delay: delay of your correction request in the Checker
+* info_message: delay message
+* checks: array of hashes describing all checks result:
+* id: check ID
+* passed: true if the check passed - otherwise false
+* title: title of the check
+* check_label: type of check => requirement, code, answer or efficiency
+* commands: array of commands executed for testing this check - not needed
+__Example:__
+```
+$ curl -XGET https://intranet.hbtn.io/correction_requests/1408957.json?auth_token=0123456789abcdef -H "Content-Type: application/json"
+{
+    "id": 1408957,
+    "user_id": 1,
+    "task_id": 1007,
+    "request_type":" Test review",
+    "status":"Done",
+    "result_display": {
+        "error": null,
+        "info": null,
+        "delay": 0,
+        "info_message": null,
+        "checks": [
+            {
+                "id": 5690,
+                "passed": true,
+                "title": "Check 0",
+                "check_label": "requirement",
+                "commands": [
+                    {
+                        "id": "3371",
+                        "success": true
+                    }
+                ]
+            },
+            {
+                "id": 5302,
+                "passed": false,
+                "title": "Check 1",
+                "check_label": "requirement",
+                "commands": [
+                    {
+                        "id": "3370",
+                        "success": false
+                    }
+                ]
+            },
+            {
+                "id": 5692,
+                "passed": false,
+                "title": "Check 2",
+                "check_label": "requirement",
+                "commands": []
+            },
+            {
+                "id": 5691,
+                "passed": false,
+                "title": "Check 3",
+                "check_label": "requirement",
+                "commands": []
+            },
+            {
+                "id": 5693,
+                "passed": false,
+                "title":"Check 4",
+                "check_label": "code",
+                "commands": []
+            }
+        ]
+    },
+    "created_at":"2019-10-02T23:45:59.000Z",
+    "updated_at":"2019-10-02T23:46:01.000Z"
+}
+$
+```
+
 ## Authors
 
 ---
