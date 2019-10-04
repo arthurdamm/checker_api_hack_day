@@ -1,4 +1,10 @@
 const messageDict = {
+    'You have all green checks!': [
+        'Congratulations :)',
+        'Good work buddy!',
+        'Wow, that hard work really paid off!',
+        'Nice job! Now go help your peers ;)'
+    ],
     'You have all red checks.': [
         'Is your GitHub repo set up with the correct name? The checker might not find it.',
         'Is the file pushed to the master branch? The checker clones your repo from master.',
