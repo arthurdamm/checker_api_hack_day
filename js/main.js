@@ -44,6 +44,7 @@ $(function () {
     $.ajax(projectRequest).done(function (data) {
       console.log("PROJECT:", data);
       $('#task_header').html(data.name);
+      $('#task_list').empty();
       for (const task of data.tasks) {
         $('#task_list').append(`<li class="task" task-id="${task.id}"">${task.title}</li>`);
       }
