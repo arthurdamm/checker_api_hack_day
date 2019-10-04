@@ -4,55 +4,8 @@ $(function () {
 
   console.log('CheckerBuddy Loading...');
 
-  $('button#login_button').click(function () {
-    console.log('LOGIN');
-    const json = {
-      api_key: $('input[name=api]').val(),
-      email: $('input[name=email]').val(),
-      password: $('input[name=password]').val(),
-      scope: 'checker'
-    };
-
-    const authenticationRequest = {
-      async: true,
-      crossDomain: true,
-      url: 'https://intranet.hbtn.io/users/auth_token.json',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      data: JSON.stringify(json)
-    };
-    $.ajax(authenticationRequest).done(function (data) {
-      console.log('AUTH:', data);
-      session.auth_token = data.auth_token;
-    });
-  });
-
-  $('button#project_button').click(function () {
-    const projectId = $('input[name=project]').val();
-    console.log('Play:', projectId);
-
-    const projectRequest = {
-      async: true,
-      crossDomain: true,
-      url: `https://intranet.hbtn.io/projects/${projectId}.json?auth_token=${session.auth_token}`,
-      method: 'GET'
-    };
-    $.ajax(projectRequest).done(function (data) {
-      console.log('PROJECT:', data);
-      $('#task_header').html(data.name);
-      $('#task_list').empty();
-      for (const task of data.tasks) {
-        $('#task_list').append(`<li class='task' task-id='${task.id}'>${task.title}</li>`);
-      }
-    });
-  });
-
-  $(document).on('click', 'li.task', function () {
-    const taskId = $(this).attr('task-id');
-    console.log('TASK:', taskId);
-
+  const correctionFunc = function (taskId) {
+    console.log('correctionFunc() taskId:', taskId);
     const correctionRequest = {
       async: true,
       crossDomain: true,
@@ -102,5 +55,58 @@ $(function () {
       };
       pollResult();
     });
+  };
+
+  $('button#login_button').click(function () {
+    console.log('LOGIN');
+    const json = {
+      api_key: $('input[name=api]').val(),
+      email: $('input[name=email]').val(),
+      password: $('input[name=password]').val(),
+      scope: 'checker'
+    };
+
+    const authenticationRequest = {
+      async: true,
+      crossDomain: true,
+      url: 'https://intranet.hbtn.io/users/auth_token.json',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: JSON.stringify(json)
+    };
+    $.ajax(authenticationRequest).done(function (data) {
+      console.log('AUTH:', data);
+      session.auth_token = data.auth_token;
+    });
+  });
+
+  $('button#project_button').click(function () {
+    const projectId = $('input[name=project]').val();
+    console.log('Play:', projectId);
+
+    const projectRequest = {
+      async: true,
+      crossDomain: true,
+      url: `https://intranet.hbtn.io/projects/${projectId}.json?auth_token=${session.auth_token}`,
+      method: 'GET'
+    };
+    $.ajax(projectRequest).done(function (data) {
+      console.log('PROJECT:', data);
+      $('#task_header').html(data.name);
+      $('#task_list').empty();
+      for (const task of data.tasks) {
+        $('#task_list').append(`<li class='task' task-id='${task.id}'>${task.title}</li>`);
+      }
+    });
+  });
+
+  $(document).on('click', 'li.task', function () {
+    correctionFunc($(this).attr('task-id'));
+  });
+
+  $(document).on('click', '#task_header', function () {
+    $('li.task').each((i, e) => correctionFunc(e.getAttribute('task-id')));
   });
 });
