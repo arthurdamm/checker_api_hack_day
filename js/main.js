@@ -43,9 +43,9 @@ $(function() {
               }
             }
             const requirementsStr = requirements
-              .map(x => (x ? '+' : '-'))
+              .map(x => (x ? '✅' : '❌'))
               .join('')
-            const outputsStr = outputs.map(x => (x ? '+' : '-')).join('')
+            const outputsStr = outputs.map(x => (x ? '✅' : '❌')).join('')
 
             /* Append data to task list element */
             $('.task_button').each(function(index) {
@@ -54,9 +54,9 @@ $(function() {
                   .children()
                   .remove()
                 $(this).append(
-                  `<div><i>Requirements: ${requirementsStr}</i></div>`
+                  `<div><i>Requirements:</i> ${requirementsStr}</div>`
                 )
-                $(this).append(`<div><i>Outputs: ${outputsStr}</i></div>`)
+                $(this).append(`<div><i>Outputs:</i> ${outputsStr}</div>`)
               }
             })
           }
