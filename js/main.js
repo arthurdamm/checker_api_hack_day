@@ -7,7 +7,7 @@ $(function () {
   $('button#login_button').click(function () {
     console.log('LOGIN');
     const json = {
-      api_key: '96a4134e30845c1fe3ed6e016f19e423',
+      api_key: $('input[name=api]').val(),
       email: $('input[name=email]').val(),
       password: $('input[name=password]').val(),
       scope: 'checker'
@@ -16,7 +16,7 @@ $(function () {
     const authenticationRequest = {
       async: true,
       crossDomain: true,
-      url: 'https://cors-anywhere.herokuapp.com/https://intranet.hbtn.io/users/auth_token.json',
+      url: 'https://intranet.hbtn.io/users/auth_token.json',
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -36,7 +36,7 @@ $(function () {
     const projectRequest = {
       async: true,
       crossDomain: true,
-      url: `https://cors-anywhere.herokuapp.com/https://intranet.hbtn.io/projects/${projectId}.json?auth_token=${session.auth_token}`,
+      url: `https://intranet.hbtn.io/projects/${projectId}.json?auth_token=${session.auth_token}`,
       method: 'GET'
     };
     $.ajax(projectRequest).done(function (data) {
@@ -56,7 +56,7 @@ $(function () {
     const correctionRequest = {
       async: true,
       crossDomain: true,
-      url: `https://cors-anywhere.herokuapp.com/https://intranet.hbtn.io/tasks/${taskId}/start_correction.json?auth_token=${session.auth_token}`,
+      url: `https://intranet.hbtn.io/tasks/${taskId}/start_correction.json?auth_token=${session.auth_token}`,
       method: 'POST'
     };
     $.ajax(correctionRequest).done(function (data) {
@@ -68,7 +68,7 @@ $(function () {
         const resultRequest = {
           async: true,
           crossDomain: true,
-          url: `https://cors-anywhere.herokuapp.com/https://intranet.hbtn.io/correction_requests/${data.id}.json?auth_token=${session.auth_token}`,
+          url: `https://intranet.hbtn.io/correction_requests/${data.id}.json?auth_token=${session.auth_token}`,
           method: 'GET'
         };
         $.ajax(resultRequest).done(function (data) {
