@@ -1,4 +1,4 @@
-# Checker API hack day
+# Checker API hack day: Checkermate v 0.01
 Hack Day #2. Building an app using Holberton school API
 ## The project
 By team of ~8, you are free to build what you want, it just needs to be related to Holberton and the Checker. You are starting now until tomorrow night.
