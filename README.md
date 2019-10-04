@@ -1,3 +1,4 @@
+[CheckerBuddy Logo](https://github.com/narnat/checker_api_hack_day/blob/master/assets/img/unicorn.jpg)
 # Checker API hack day: Checkerbuddy v 0.01
 Hack Day #2. Building an app using Holberton school API
 ## The project
