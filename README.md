@@ -13,7 +13,7 @@ Example of projects:
 etc.
 
 # The API
-## Authentication
+### Authentication
 All endpoints below are accessible only with authentication. The authentication on our API is done by requesting an auth_token and use it in every request.
 
 To get a auth_token, you should use this endpoint:
@@ -42,9 +42,9 @@ $ curl -XPOST https://intranet.hbtn.io/users/auth_token.json -H "Content-Type: a
 }
 $
 ```
-Get my profile
+### Get my profile
 URL: `GET /users/me.json`
-Parameters:
+__Parameters:__
 *auth_token: from the authentication request
 * Rate limit: 100 requests per hour
 * Result:
@@ -58,7 +58,7 @@ Parameters:
 * twitter_username: Twitter username
 * github_username: Github username
 * profile_pic: signed profile picture
-Example:
+__Example:__
 ```
 $ curl -XGET https://intranet.hbtn.io/users/me.json?auth_token=0123456789abcdef -H "Content-Type: application/json"
 {
