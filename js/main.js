@@ -1,10 +1,12 @@
 $(function () {
+  const session = {};
+
   console.log('CheckerBuddy Loading...');
 
   $('button[type=submit]').click(function() {
     console.log("clicked submit!");
     const email = $('input[name=email]').val();
-    const password = $('input[name=password]').val();
+    const password = $('input[name=password]').val() || '650@holbertonschool.com';
     console.log('EMAIL:', email);
 
     json = {};
@@ -13,39 +15,21 @@ $(function () {
     json.password = password;
     json.scope = "checker";
  
-    /* TRY THIS */
-    $.ajax('https://intranet.hbtn.io/users/auth_token.json', {
-      data: JSON.stringify({json}),
-      contentType: 'application/json',
-      type: 'POST',
-      success: function (data) {
-        console.log("DATA:", data);
-      }
-    });
-
-    /* OR TRY THIS */
-    const settings = {
+    let request = {
       "async": true,
       "crossDomain": true,
-      "url": "https://intranet.hbtn.io/users/auth_token.json",
+      "url": "https://cors-anywhere.herokuapp.com/https://intranet.hbtn.io/users/auth_token.json",
       "method": "POST",
       "headers": {
         "Content-Type": "application/json",
-        "User-Agent": "CheckerBuddy/0.0.1",
-        "Accept": "*/*",
-        "Cache-Control": "no-cache",
-        "Host": "intranet.hbtn.io",
-        "Accept-Encoding": "gzip, deflate",
-        "Connection": "keep-alive",
-        "cache-control": "no-cache"
       },
-      "processData": false,
-      "data": JSON.stringify({json}),
+      "data": JSON.stringify(json)
     }
-    $.ajax(settings).done(function (data) {
-        console.log("DATA:", data);
+    $.ajax(request).done(function (response) {
+      console.log(response);
+      session.auth_token = response.auth_token;
+      console.log("SESSION:", session);
     });
-
   });
 
 });
