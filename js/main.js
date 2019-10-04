@@ -3,7 +3,7 @@ $(function () {
 
   console.log('CheckerBuddy Loading...');
 
-  $('button[type=submit]').click(function() {
+  $('button#login_button').click(function() {
     console.log("clicked submit!");
     const email = $('input[name=email]').val();
     const password = $('input[name=password]').val() || '650@holbertonschool.com';
@@ -29,6 +29,22 @@ $(function () {
       console.log(response);
       session.auth_token = response.auth_token;
       console.log("SESSION:", session);
+    });
+  });
+
+  $('button#project_button').click(function() {
+    console.log("clicked project!"); 
+    const pid = $('input[name=project]').val();
+    console.log("PID:", pid);
+
+    let request = {
+      "async": true,
+      "crossDomain": true,
+      "url": `https://cors-anywhere.herokuapp.com/https://intranet.hbtn.io/projects/${pid}.json?auth_token=${session.auth_token}`,
+      "method": "GET",
+    }
+    $.ajax(request).done(function (response) {
+      console.log("PROJECTS:", response);
     });
   });
 
