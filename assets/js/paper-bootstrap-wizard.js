@@ -166,3 +166,7 @@ function debounce(func, wait, immediate) {
 
 ga('create', 'UA-46172202-1', 'auto')
 ga('send', 'pageview')
+
+$('#danger').click(() => {
+  location.reload()
+})

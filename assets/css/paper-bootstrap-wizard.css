@@ -2367,7 +2367,7 @@ fieldset[disabled] .btn-neutral.active {
   height: 64px;
   transform: rotate(45deg);
   transform-origin: 32px 32px;
-  margin-left: 35%;
+  margin-left: 37%;
 }
 
 .lds-heart div {
@@ -2424,4 +2424,8 @@ fieldset[disabled] .btn-neutral.active {
   100% {
     transform: scale(0.9);
   }
+}
+
+#danger {
+  margin-left: 15%;
 }
