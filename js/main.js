@@ -57,7 +57,7 @@ $(function () {
     });
   };
 
-  $('button#login_button').click(function () {
+  $(document).on('click', 'input[value=Next]', function () {
     console.log('LOGIN');
     const json = {
       api_key: $('input[name=api]').val(),
@@ -78,11 +78,15 @@ $(function () {
     };
     $.ajax(authenticationRequest).done(function (data) {
       console.log('AUTH:', data);
-      session.auth_token = data.auth_token;
+      if (data.auth_token) {
+        session.auth_token = data.auth_token;
+        $('div#validating').hide();
+        $('input[name=next]').val("Play");
+      }
     });
   });
 
-  $('button#project_button').click(function () {
+  $(document).on('click', 'input[value=Play]', function () {
     const projectId = $('input[name=project]').val();
     console.log('Play:', projectId);
 

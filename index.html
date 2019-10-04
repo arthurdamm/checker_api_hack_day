@@ -114,7 +114,7 @@
 												</div>
 												<div class="form-group">
 													<label>API Key <small>(required)</small></label>
-													<input name="password" type="password" class="form-control"
+													<input name="api" type="password" class="form-control"
 														placeholder="42j234l5h2k46764lk63" required>
 												</div>
 											</div>
@@ -122,7 +122,7 @@
 									</div>
 									<div class="tab-pane" id="account">
 										<div class="row">
-											<div class="col-sm-4 col-sm-offset-4">
+											<div id="validating" class="col-sm-4 col-sm-offset-4">
 												<h5 class="info-text"> Validating... </h5>
 												<div class="lds-heart">
 													<div></div>
@@ -145,7 +145,13 @@
 									<div class="tab-pane" id="address">
 										<div class="row">
 											<div class="col-sm-12">
-												<h5 class="info-text"> What task would you like to check? </h5>
+												<h5 class="info-text"> What task would you like to check? </h5
+												>
+												<div class="tasks_container">
+											      <h2 id="task_header"></h2>
+											      <ol id="task_list">
+											      </ol>
+											    </div>
 											</div>
 										</div>
 									</div>
@@ -181,6 +187,7 @@
 
 <!--   Core JS Files   -->
 <script src="assets/js/jquery-2.2.4.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/main.js"></script>
 <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="assets/js/jquery.bootstrap.wizard.js" type="text/javascript"></script>
 
