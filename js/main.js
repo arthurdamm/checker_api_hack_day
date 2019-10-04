@@ -56,6 +56,10 @@ $(function() {
                 $(this).children('.results').remove();
                 $(this).append(`<div class="results"><i>Requirements: ${requirementsStr}</i></div>`);
                 $(this).append(`<div class="results"><i>Outputs: ${outputsStr}</i></div>`);
+                $(this).append(`<h4>${whatMessage(data)}</h4>`);
+                messageDict[whatMessage(data)].forEach((elem) => {
+                  $(this).append(`<p>    ${elem}</p>`);
+                });
               }
             })
           }

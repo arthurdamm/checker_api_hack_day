@@ -2441,3 +2441,7 @@ fieldset[disabled] .btn-neutral.active {
 #task_header:hover {
   background-color: #EB5E28;
 }
+
+button:focus {
+  outline:0;
+}
