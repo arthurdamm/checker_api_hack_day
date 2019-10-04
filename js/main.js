@@ -48,7 +48,7 @@ $(function() {
             const outputsStr = outputs.map(x => (x ? '+' : '-')).join('')
 
             /* Append data to task list element */
-            $('li.task').each(function(index) {
+            $('.task_button').each(function(index) {
               if ($(this).attr('task-id') === data.task_id.toString()) {
                 $(this)
                   .children()
@@ -116,21 +116,24 @@ $(function() {
     }
     $.ajax(projectRequest).done(function(data) {
       console.log('PROJECT:', data)
-      $('#task_header').html(data.name)
-      $('#task_list').empty()
+      $('.tasks_container').empty()
+      $('.tasks_container').append(
+        `<button class="list-group-item list-group-item-action active" id="task_header" type="button">${data.name}</button>`
+      )
+      // $('#tasks_header').html(data.name);
       for (const task of data.tasks) {
-        $('#task_list').append(
-          `<li class='task' task-id='${task.id}'>${task.title}</li>`
+        $('.tasks_container').append(
+          `<button type="button" class="list-group-item list-group-item-action task_button" task-id='${task.id}'>${task.title}</button>`
         )
       }
     })
   })
 
-  $(document).on('click', 'li.task', function() {
+  $(document).on('click', '.task_button', function() {
     correctionFunc($(this).attr('task-id'))
   })
 
   $(document).on('click', '#task_header', function() {
-    $('li.task').each((i, e) => correctionFunc(e.getAttribute('task-id')))
+    $('.task_button').each((i, e) => correctionFunc(e.getAttribute('task-id')))
   })
 })
