@@ -126,6 +126,3 @@ const mydata = {
     "created_at":"2019-10-02T23:45:59.000Z",
     "updated_at":"2019-10-02T23:46:01.000Z"
 }
-
-console.log(whatMessage(mydata));
-console.log(messageDict[whatMessage(mydata)]);
