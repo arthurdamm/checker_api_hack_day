@@ -52,14 +52,20 @@ $(function() {
             /* Append data to task list element */
             $('.task_button').each(function(index) {
               if ($(this).attr('task-id') === data.task_id.toString()) {
+                const msgStr = whatMessage(data);
                 $(`.task_button[task-id=${taskId}]`).find('.lds-heart').hide();
                 $(this).children('.results').remove();
                 $(this).append(`<div class="results"><i>Requirements: ${requirementsStr}</i></div>`);
                 $(this).append(`<div class="results"><i>Outputs: ${outputsStr}</i></div>`);
-                $(this).append(`<h4>${whatMessage(data)}</h4>`);
-                messageDict[whatMessage(data)].forEach((elem) => {
+                $(this).append(`<h4>${msgStr}</h4>`);
+                if (msgStr === 'You have all green checks!') {
+                  const elem = messageDict[msgStr][Math.floor(Math.random()*messageDict[msgStr].length)];;
                   $(this).append(`<p>    ${elem}</p>`);
-                });
+                } else {
+                  messageDict[msgStr].forEach((elem) => {
+                    $(this).append(`<p>    ${elem}</p>`);
+                  });
+                }
               }
             })
           }
