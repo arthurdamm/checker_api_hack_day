@@ -76,7 +76,27 @@ $(function () {
           if (data.status !== 'Done') {
             setTimeout(pollResult, 2000);
           } else {
-            console.log('POLL DONE!');
+            /* collect checker data */
+            const requirements = [];
+            const outputs = [];
+            for (const check of data.result_display.checks) {
+              if (check.check_label === 'requirement') {
+                requirements.push(check.passed);
+              } else if (check.check_label === 'code') {
+                outputs.push(check.passed);
+              }
+            }
+            const requirementsStr = requirements.map(x => x ? '+' : '-').join('');
+            const outputsStr = outputs.map(x => x ? '+' : '-').join('');
+
+            /* Append data to task list element */
+            $('li.task').each(function (index) {
+              if ($(this).attr('task-id') === data.task_id.toString()) {
+                $(this).children().remove();
+                $(this).append(`<div><i>Requirements: ${requirementsStr}</i></div>`);
+                $(this).append(`<div><i>Outputs: ${outputsStr}</i></div>`);
+              }
+            });
           }
         });
       };
