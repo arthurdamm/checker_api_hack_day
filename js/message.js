@@ -2,7 +2,7 @@ const messageDict = {
     'You have all red checks.': [
         'Is your GitHub repo set up with the correct name? The checker might not find it.',
         'Is the file pushed to the master branch? The checker clones your repo from master.',
-        'Is the file for this task named correctly?'
+        'Is the file for this task named correctly? Do you have a README that is not empty?'
     ],
     'Only the first check is green.': [
         'Does your program compile locally with no errors or warning? Make sure to run gcc with the flags -Wall -Werror -pedantic -Wextra.',
@@ -128,3 +128,4 @@ const mydata = {
 }
 
 console.log(whatMessage(mydata));
+console.log(messageDict[whatMessage(mydata)]);
