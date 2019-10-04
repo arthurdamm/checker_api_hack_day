@@ -274,8 +274,8 @@ $
 * [Arthur Damm](https://github.com/arthurdamm)
 * [Laura Roudge](https://github.com/lroudge)
 * [Tu Vo](https://github.com/tuvo1106)
-* [Hongtu Huang](https://github.com/billhong6981)
 * [Farrukh Akhrarov](https://github.com/narnat)
+* [Hongtu Huang](https://github.com/billhong6981)
 
 ---
 
