@@ -49,7 +49,10 @@ We had to add empty back-end files (composer.json, index.php) in order for Herok
 * We already know how to do what we wanted to do in JQuery
 
 # Usage
-You can access it using this [link](https://checkerbuddy.herokuapp.com) or from [GitHub pages](https://narnat.github.io/checker_api_hack_day/) 
+You can access it using this [link](https://checkerbuddy.herokuapp.com) or from [GitHub pages](https://narnat.github.io/checker_api_hack_day/)
+
+You can find your API key in the [tools](https://intranet.hbtn.io/dashboards/my_tools) section.
+You can find the ID of your project at the end of the URL of that project, or in the [projects](https://intranet.hbtn.io/dashboards/my_current_projects) section of the intranet in front of each project.
 
 
 # The API
