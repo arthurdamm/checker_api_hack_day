@@ -2431,6 +2431,10 @@ fieldset[disabled] .btn-neutral.active {
   margin-left: 38%;
 }
 
+#danger-project {
+  margin-left: 40%;
+}
+
 #task_header {
   text-align: center;
   font-size: larger;

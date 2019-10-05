@@ -6,6 +6,8 @@ $(function() {
 
   $('div#failing').hide()
   $('div#showing').hide()
+  $('div#failing-project').hide()
+  $('div.project-container').hide()
 
   const correctionFunc = function(taskId) {
     console.log('correctionFunc() taskId:', taskId)
@@ -116,6 +118,8 @@ $(function() {
   $(document).on('click', 'input[value=Play]', function() {
     const projectId = $('input[name=project]').val()
     console.log('Play:', projectId)
+    $('div.project-container').hide()
+    $('div#failing-project').hide()
 
     const projectRequest = {
       async: true,
@@ -125,6 +129,8 @@ $(function() {
     }
     $.ajax(projectRequest).done(function(data) {
       console.log('PROJECT:', data)
+      $('div.project-container').show()
+      $('div#failing-project').hide()
       $('.tasks_container').empty()
       $('.tasks_container').append(
         `<button class="list-group-item list-group-item-action active" id="task_header" type="button"><h3>${data.name}</h3></button>`
@@ -132,7 +138,11 @@ $(function() {
       for (const task of data.tasks) {
         $('.tasks_container').append(`<button type="button" class="list-group-item list-group-item-action task_button" task-id='${task.id}'><h4><u>${task.title}</u></h4><div style="float: right; display: none;" class="lds-heart"><div></div></div></button>`);
       }
-    })
+    }).fail(() => {
+        console.log("FAIL!");
+        $('div.project-container').hide()
+        setTimeout(() => $('div#failing-project').show(), 500)
+      })
   })
 
   $(document).on('click', '.task_button', function() {
