@@ -13,6 +13,45 @@ Example of projects:
 * Post in Twitter the user usage of the Checker (statistic of checks passed)
 etc.
 
+# Description
+### What we do
+CheckerBuddy allows Holberton students to have hints regarding their failed checks on a specific task of a specific project. Just tell us the project and the task, and we'll take care of the rest.
+This is made possible by our experience as Holberton students and our passion for helping others.
+
+![Architecture](https://github.com/narnat/checker_api_hack_day/raw/master/assets/img/flow.jpg)
+
+### The UI
+We decided to use a Bootstrap theme for this project and update the HTML and CSS to fit our needs.
+We also decided to keep it light and fun, because why so serious?
+The whole point of CheckerBuddy is to have a friendlier interface, so it was a pretty big part of our project.
+
+### The deployment
+All the logic happens client-side, on the browser.
+
+We deployed on Heroku.
+
+We had to add empty back-end files (composer.json, index.php) in order for Heroku to run like a server.
+
+### Challenges
+* Getting past the CORS restriction
+* Solution: Thank you Guillaume, our savior :)
+* Testing regularly with the request limit
+* Solution: take a break and work on something else!
+* Few merge issues
+* Solution: we should have used more branches...
+
+### Successes
+* Finding a beautiful UI super fast
+* Thanks to Bootstrap and Tu’s talent
+* Having a good focus/teamwork
+* The group powered through the entire project with great energy
+* Applying knowledge from previous projects
+* We already know how to do what we wanted to do in JQuery
+
+# Usage
+You can access it using this [link](https://checkerbuddy.herokuapp.com) or from [GitHub pages](https://narnat.github.io/checker_api_hack_day/) 
+
+
 # The API
 ### Authentication
 All endpoints below are accessible only with authentication. The authentication on our API is done by requesting an auth_token and use it in every request.
@@ -275,7 +314,6 @@ $
 * [Laura Roudge](https://github.com/lroudge)
 * [Tu Vo](https://github.com/tuvo1106)
 * [Farrukh Akhrarov](https://github.com/narnat)
-* [Hongtu Huang](https://github.com/billhong6981)
 
 ---
 
