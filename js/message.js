@@ -66,7 +66,7 @@ const whatMessage = (data) => {
         return 'You have one or more requirement red checks.';
     } else if (passedReq === reqList.length && passedOut < outList.length) {
         return 'You have one or more output red checks.';
-    } else {
+    } else if (passedReq === reqList.length && passedOut === outList.length) {
         return 'You have all green checks!';
     }
 }
