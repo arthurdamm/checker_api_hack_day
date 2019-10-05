@@ -238,24 +238,15 @@ const getScore = data => {
 
 // returns output message based on given score
 const outputMessage = score => {
-  if (!score.req.pass && !score.output.pass) return 'You have all red checks.'
-  if (score.req.pass === 1 && !score.output.pass)
-    return 'Only the first check is green.'
-  if (score.req.pass === score.req.total && !score.output.pass)
+  const { req, output } = score
+  if (!req.pass && !output.pass) return 'You have all red checks.'
+  if (req.pass === 1 && !output.pass) return 'Only the first check is green.'
+  if (req.pass === req.total && !output.pass)
     return 'All the output checks are red, but all the requirement checks are green.'
-  if (
-    score.req.pass < score.req.total &&
-    score.output.pass === score.output.total
-  )
+  if (req.pass < req.total && output.pass === output.total)
     return 'You have one or more requirement red checks.'
-  if (
-    score.req.pass === score.req.total &&
-    score.output.pass < score.output.total
-  )
+  if (req.pass === req.total && output.pass < output.total)
     return 'You have one or more output red checks.'
-  if (
-    score.req.pass === score.req.total &&
-    score.output.pass === score.output.total
-  )
+  if (req.pass === req.total && output.pass === output.total)
     return 'You have all green checks!'
 }
