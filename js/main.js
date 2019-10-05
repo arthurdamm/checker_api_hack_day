@@ -55,15 +55,16 @@ $(function() {
                 const msgStr = whatMessage(data);
                 $(`.task_button[task-id=${taskId}]`).find('.lds-heart').hide();
                 $(this).children('.results').remove();
+                $(this).children('.msg').remove();
                 $(this).append(`<div class="results"><i>Requirements: ${requirementsStr}</i></div>`);
                 $(this).append(`<div class="results"><i>Outputs: ${outputsStr}</i></div>`);
-                $(this).append(`<h4>${msgStr}</h4>`);
+                $(this).append(`<h4 class="msg">${msgStr}</h4>`);
                 if (msgStr === 'You have all green checks!') {
                   const elem = messageDict[msgStr][Math.floor(Math.random()*messageDict[msgStr].length)];;
-                  $(this).append(`<p>    ${elem}</p>`);
+                  $(this).append(`<p class="msg">    ${elem}</p>`);
                 } else {
                   messageDict[msgStr].forEach((elem) => {
-                    $(this).append(`<p>    ${elem}</p>`);
+                    $(this).append(`<p class="msg">    ${elem}</p>`);
                   });
                 }
               }
@@ -126,11 +127,10 @@ $(function() {
       console.log('PROJECT:', data)
       $('.tasks_container').empty()
       $('.tasks_container').append(
-        `<button class="list-group-item list-group-item-action active" id="task_header" type="button">${data.name}</button>`
+        `<button class="list-group-item list-group-item-action active" id="task_header" type="button"><h3>${data.name}</h3></button>`
       )
-      // $('#tasks_header').html(data.name);
       for (const task of data.tasks) {
-        $('.tasks_container').append(`<button type="button" class="list-group-item list-group-item-action task_button" task-id='${task.id}'>${task.title}<div style="float: right; display: none;" class="lds-heart"><div></div></div></button>`);
+        $('.tasks_container').append(`<button type="button" class="list-group-item list-group-item-action task_button" task-id='${task.id}'><h4><u>${task.title}</u></h4><div style="float: right; display: none;" class="lds-heart"><div></div></div></button>`);
       }
     })
   })
