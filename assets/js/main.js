@@ -153,10 +153,14 @@ $(function() {
         $('.tasks_container').append(
           `<button class="list-group-item list-group-item-action active" id="task_header" type="button"><h3>${data.name}</h3></button>`
         )
-        let i = 0;
+        let i = 0
         for (const task of data.tasks) {
           $('.tasks_container').append(
-            `<button type="button" class="list-group-item list-group-item-action task_button" task-id='${task.id}'><h4><u>${i++}. ${task.title}</u></h4><div style="float: right; display: none;" class="lds-heart"><div></div></div></button>`
+            `<button type="button" class="list-group-item list-group-item-action task_button" task-id='${
+              task.id
+            }'><h4><u>${i++}. ${
+              task.title
+            }</u></h4><div style="float: right; display: none;" class="lds-heart"><div></div></div></button>`
           )
         }
       })
@@ -175,3 +179,83 @@ $(function() {
     $('.task_button').each((i, e) => correctionFunc(e.getAttribute('task-id')))
   })
 })
+
+const messageDict = {
+  'You have all green checks!': [
+    'Congratulations :)',
+    'Good work buddy!',
+    'Wow, that hard work really paid off!',
+    'Nice job! Now go help your peers ;)'
+  ],
+  'You have all red checks.': [
+    'Is your GitHub repo set up with the correct name? The checker might not find it.',
+    'Is the file pushed to the master branch? The checker clones your repo from master.',
+    'Is the file for this task named correctly? Do you have a README that is not empty?'
+  ],
+  'Only the first check is green.': [
+    'Does your program compile locally with no errors or warning? Make sure to run gcc with the flags -Wall -Werror -pedantic -Wextra.',
+    'Do you have the same gcc (or python) version as the project requirements? Your program might compile and run locally but not on the checker side.',
+    'Is there a segmentation fault, or timeout?'
+  ],
+  'All the output checks are red, but all the requirement checks are green.': [
+    'Try piping your program in the command "cat -e" to make sure there is not trailing whitespace: "./a.out | cat -e". You can also use "diff" on your output and the example output.',
+    'Is your file executable? Did you run "chmod u+x" on your file?',
+    'Did you think of all the edge cases? You can collaborate with your peers and change the main file provided as an example.'
+  ],
+  'You have one or more requirement red checks.': [
+    'Do you have comments/documentation? Are your header files include-guarded (if applicable)?',
+    'Are your files betty compliant, even the header files? (or pep8, shellcheck etc...)',
+    'Do you have a shebang (Python/Shell)? Do you have a new line at the end of your file?'
+  ],
+  'You have one or more output red checks.': [
+    'Did you think about all the edge cases? You can collaborate with your peers and change the main file provided as an example.',
+    'Did you check if Valgrind passes with no memory leaks or errors (if applicable)?',
+    'Did you test your code in a container (if you have access to one, it is a great way of reproducing the checker environment)?'
+  ]
+}
+
+// Returns the correct case depending on number of red vs green checks
+const whatMessage = data => {
+  return outputMessage(getScore(data))
+}
+
+// calculates score based on given data set
+const getScore = data => {
+  return data.result_display.checks.reduce(
+    (obj, el) => {
+      if (el.check_label === 'requirement') {
+        obj.req.total++
+        el.passed ? obj.req.pass++ : null
+      } else if (el.check_label === 'code') {
+        obj.output.total++
+        el.passed ? obj.output.pass++ : null
+      }
+      return obj
+    },
+    { req: { total: 0, pass: 0 }, output: { total: 0, pass: 0 } }
+  )
+}
+
+// returns output message based on given score
+const outputMessage = score => {
+  if (!score.req.pass && !score.output.pass) return 'You have all red checks.'
+  if (score.req.pass === 1 && !score.output.pass)
+    return 'Only the first check is green.'
+  if (score.req.pass === score.req.total && !score.output.pass)
+    return 'All the output checks are red, but all the requirement checks are green.'
+  if (
+    score.req.pass < score.req.total &&
+    score.output.pass === score.output.total
+  )
+    return 'You have one or more requirement red checks.'
+  if (
+    score.req.pass === score.req.total &&
+    score.output.pass < score.output.total
+  )
+    return 'You have one or more output red checks.'
+  if (
+    score.req.pass === score.req.total &&
+    score.output.pass === score.output.total
+  )
+    return 'You have all green checks!'
+}
