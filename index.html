@@ -22,171 +22,175 @@
 
 	<!-- Google Tag Manager -->
 	<script>
-		(function (w, d, s, l, i) {
-			w[l] = w[l] || [];
-			w[l].push({
-				'gtm.start': new Date().getTime(),
-				event: 'gtm.js'
-			});
-			var f = d.getElementsByTagName(s)[0],
-				j = d.createElement(s),
-				dl = l != 'dataLayer' ? '&l=' + l : '';
-			j.async = true;
-			j.src =
-				'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-			f.parentNode.insertBefore(j, f);
-		})(window, document, 'script', 'dataLayer', 'GTM-NKDMSK6');
+     if ('serviceWorker' in navigator) {
+       // register service worker
+       navigator.serviceWorker.register('./service-worker.js');
+     }
+	 (function (w, d, s, l, i) {
+	   w[l] = w[l] || [];
+	   w[l].push({
+		 'gtm.start': new Date().getTime(),
+		 event: 'gtm.js'
+	   });
+	   var f = d.getElementsByTagName(s)[0],
+		   j = d.createElement(s),
+		   dl = l != 'dataLayer' ? '&l=' + l : '';
+	   j.async = true;
+	   j.src =
+		 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+	   f.parentNode.insertBefore(j, f);
+	 })(window, document, 'script', 'dataLayer', 'GTM-NKDMSK6');
 	</script>
 	<!-- End Google Tag Manager -->
 </head>
 
 <body>
-	<!-- Google Tag Manager (noscript) -->
-	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKDMSK6" height="0" width="0"
-			style="display:none;visibility:hidden"></iframe></noscript>
-	<!-- End Google Tag Manager (noscript) -->
-	<div class="image-container set-full-height" style="background-image: url('assets/img/paper-1.jpeg')">
-		<!--   Big container   -->
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-8 col-sm-offset-2">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKDMSK6" height="0" width="0"
+			             style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <div class="image-container set-full-height" style="background-image: url('assets/img/paper-1.jpeg')">
+	<!--   Big container   -->
+	<div class="container">
+	  <div class="row">
+		<div class="col-sm-8 col-sm-offset-2">
 
-					<!--      Wizard container        -->
-					<div class="wizard-container">
+		  <!--      Wizard container        -->
+		  <div class="wizard-container">
 
-						<div class="card wizard-card" data-color="red" id="wizardProfile">
-							<form action="" method="">
-								<!--        You can switch " data-color="orange" "  with one of the next bright colors: "blue", "green", "orange", "red", "azure"          -->
+			<div class="card wizard-card" data-color="red" id="wizardProfile">
+			  <form action="" method="">
+				<!--        You can switch " data-color="orange" "  with one of the next bright colors: "blue", "green", "orange", "red", "azure"          -->
 
-								<div class="wizard-header text-center">
-									<h3 class="wizard-title">Ready to Get This Checker Money?</h3>
-									<p class="category">Let's make it rain.</p>
-								</div>
-
-								<div class="wizard-navigation">
-									<div class="progress-with-circle">
-										<div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1"
-											aria-valuemax="3" style="width: 21%;"></div>
-									</div>
-									<ul>
-										<li>
-											<a href="#about" data-toggle="tab">
-												<div class="icon-circle">
-													<i class="ti-user"></i>
-												</div>
-												About
-											</a>
-										</li>
-										<li>
-											<a href="#account" data-toggle="tab">
-												<div class="icon-circle">
-													<i class="ti-settings"></i>
-												</div>
-												Project
-											</a>
-										</li>
-										<li>
-											<a href="#address" data-toggle="tab">
-												<div class="icon-circle">
-													<i class="ti-map"></i>
-												</div>
-												Tasks
-											</a>
-										</li>
-									</ul>
-								</div>
-								<div class="tab-content">
-									<div class="tab-pane" id="about">
-										<div class="row">
-											<h5 class="info-text"> Please enter in your credentials.</h5>
-											<div class="col-sm-4 col-sm-offset-1">
-											</div>
-											<div class="col-sm-10 col-sm-offset-1">
-												<div class="form-group">
-													<label>Holberton Email <small>(required)</small></label>
-													<input name="email" type="text" class="form-control"
-														placeholder="123@holbertonschool.com" required>
-												</div>
-												<div class="form-group">
-													<label>Password <small>(required)</small></label>
-													<input name="password" type="password" class="form-control"
-														placeholder="........." required>
-												</div>
-												<div class="form-group">
-													<label>API Key <small>(required)</small></label>
-													<input name="api" type="password" class="form-control"
-														placeholder="42j234l5h2k46764lk63" required>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="tab-pane" id="account">
-										<div class="row">
-											<div id="validating" class="col-sm-4 col-sm-offset-4">
-												<h5 class="info-text"> Validating... </h5>
-												<div class="lds-heart">
-													<div></div>
-												</div>
-											</div>
-											<div id="failing">
-												<button type="button" class="btn btn-danger" id="danger">Authorization
-													failed!</button>
-												<h5 class="info-text">Please try again!</h5>
-											</div>
-											<div id="showing">
-												<h5 class="info-text"> Project number? </h5>
-												<div class="row">
-													<div class="col-sm-4 col-sm-offset-4">
-														<div class="form-group">
-															<input name="project" type="text" class="form-control"
-																placeholder="451" required>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="tab-pane" id="address">
-										<div class="row">
-											<div id="failing-project">
-												<button type="button" class="btn btn-danger" id="danger-project">Invalid
-													Project ID!</button>
-												<h5 class="info-text">Please try again!</h5>
-											</div>
-											<div class="col-sm-12 project-container">
-												<h5 class="info-text"> Click on individual tasks to check them or the
-													project title to checker them all!</h5>
-												<div class="tasks_container">
-													<button class="list-group-item list-group-item-action active"
-														id="task_header" type="button"></button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="wizard-footer">
-									<div class="pull-right">
-										<input type='button' class='btn btn-next btn-fill btn-warning btn-wd'
-											name='next' value='Next' />
-										<input type='button' class='btn btn-finish btn-fill btn-warning btn-wd'
-											name='finish' value='Finish' />
-									</div>
-
-									<div class="pull-left">
-										<input type='button' class='btn btn-previous btn-default btn-wd' name='previous'
-											value='Previous' />
-									</div>
-									<div class="clearfix"></div>
-								</div>
-							</form>
-						</div>
-					</div> <!-- wizard container -->
+				<div class="wizard-header text-center">
+				  <h3 class="wizard-title">Ready to Get This Checker Money?</h3>
+				  <p class="category">Let's make it rain.</p>
 				</div>
-			</div><!-- end row -->
-		</div> <!--  big container -->
 
-		<div class="footer">
-			<div class="container text-center">
+				<div class="wizard-navigation">
+				  <div class="progress-with-circle">
+					<div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1"
+								aria-valuemax="3" style="width: 21%;"></div>
+				  </div>
+				  <ul>
+					<li>
+					  <a href="#about" data-toggle="tab">
+						<div class="icon-circle">
+						  <i class="ti-user"></i>
+						</div>
+						About
+					  </a>
+					</li>
+					<li>
+					  <a href="#account" data-toggle="tab">
+						<div class="icon-circle">
+						  <i class="ti-settings"></i>
+						</div>
+						Project
+					  </a>
+					</li>
+					<li>
+					  <a href="#address" data-toggle="tab">
+						<div class="icon-circle">
+						  <i class="ti-map"></i>
+						</div>
+						Tasks
+					  </a>
+					</li>
+				  </ul>
+				</div>
+				<div class="tab-content">
+				  <div class="tab-pane" id="about">
+					<div class="row">
+					  <h5 class="info-text"> Please enter in your credentials.</h5>
+					  <div class="col-sm-4 col-sm-offset-1">
+					  </div>
+					  <div class="col-sm-10 col-sm-offset-1">
+						<div class="form-group">
+						  <label>Holberton Email <small>(required)</small></label>
+						  <input name="email" type="text" class="form-control"
+									   placeholder="123@holbertonschool.com" required>
+						</div>
+						<div class="form-group">
+						  <label>Password <small>(required)</small></label>
+						  <input name="password" type="password" class="form-control"
+									   placeholder="........." required>
+						</div>
+						<div class="form-group">
+						  <label>API Key <small>(required)</small></label>
+						  <input name="api" type="password" class="form-control"
+									   placeholder="42j234l5h2k46764lk63" required>
+						</div>
+					  </div>
+					</div>
+				  </div>
+				  <div class="tab-pane" id="account">
+					<div class="row">
+					  <div id="validating" class="col-sm-4 col-sm-offset-4">
+						<h5 class="info-text"> Validating... </h5>
+						<div class="lds-heart">
+						  <div></div>
+						</div>
+					  </div>
+					  <div id="failing">
+						<button type="button" class="btn btn-danger" id="danger">Authorization
+						  failed!</button>
+						<h5 class="info-text">Please try again!</h5>
+					  </div>
+					  <div id="showing">
+						<h5 class="info-text"> Project number? </h5>
+						<div class="row">
+						  <div class="col-sm-4 col-sm-offset-4">
+							<div class="form-group">
+							  <input name="project" type="text" class="form-control"
+										   placeholder="451" required>
+							</div>
+						  </div>
+						</div>
+					  </div>
+					</div>
+				  </div>
+				  <div class="tab-pane" id="address">
+					<div class="row">
+					  <div id="failing-project">
+						<button type="button" class="btn btn-danger" id="danger-project">Invalid
+						  Project ID!</button>
+						<h5 class="info-text">Please try again!</h5>
+					  </div>
+					  <div class="col-sm-12 project-container">
+						<h5 class="info-text"> Click on individual tasks to check them or the
+						  project title to checker them all!</h5>
+						<div class="tasks_container">
+						  <button class="list-group-item list-group-item-action active"
+										 id="task_header" type="button"></button>
+						</div>
+					  </div>
+					</div>
+				  </div>
+				</div>
+				<div class="wizard-footer">
+				  <div class="pull-right">
+					<input type='button' class='btn btn-next btn-fill btn-warning btn-wd'
+								 name='next' value='Next' />
+					<input type='button' class='btn btn-finish btn-fill btn-warning btn-wd'
+								 name='finish' value='Finish' />
+				  </div>
+
+				  <div class="pull-left">
+					<input type='button' class='btn btn-previous btn-default btn-wd' name='previous'
+								 value='Previous' />
+				  </div>
+				  <div class="clearfix"></div>
+				</div>
+			  </form>
+			</div>
+		  </div> <!-- wizard container -->
+		</div>
+	  </div><!-- end row -->
+	</div> <!--  big container -->
+
+	<div class="footer">
+	  <div class="container text-center">
 				Made with <i class="fa fa-heart heart"></i> by <a href="https://www.holbertonschool.com">Cohort 8</a>.
 			</div>
 		</div>
