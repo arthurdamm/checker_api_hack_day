@@ -95,6 +95,8 @@ $(function() {
 
   $(document).on('click', 'input[value=Next]', function() {
     console.log('LOGIN')
+    $('div#failing').hide()
+    $('div#showing').hide()
     $('#validating').fadeOut(300, function() {
       $('#validating').fadeOut(300)
     })
