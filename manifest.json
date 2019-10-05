@@ -1,0 +1,16 @@
+{
+    "name": "Checker Buddy",
+    "short_name" : "PWA",
+    "start_url": "index.html?utm_source=homescreen",
+    "scope" : "./",
+    "icons": [
+        {
+            "src": "./assets/favicon.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+    ],
+    "theme_color": "#ffee00",
+    "background_color": "#ffee00",
+    "display": "standalone"
+}
