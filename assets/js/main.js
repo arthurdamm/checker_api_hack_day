@@ -15,7 +15,12 @@ $(function() {
       async: true,
       crossDomain: true,
       url: `https://intranet.hbtn.io/tasks/${taskId}/start_correction.json?auth_token=${session.auth_token}`,
-      method: 'POST'
+      method: 'POST',
+      statusCode: {
+        429: function() {
+          alert('Exceeded request limit! Please try again in an hour.')
+        }
+      }
     }
     $.ajax(correctionRequest).done(function(data) {
       console.log('CORRECTION:', data)
@@ -210,11 +215,10 @@ const messageDict = {
   'You have one or more output red checks.': [
     'Did you think about all the edge cases? You can collaborate with your peers and change the main file provided as an example.',
     'Did you check if Valgrind passes with no memory leaks or errors (if applicable)?',
-    'Did you test your code in a container (if you have access to one, it is a great way of reproducing the checker environment)?'],
+    'Did you test your code in a container (if you have access to one, it is a great way of reproducing the checker environment)?'
+  ],
   'No checks on this assignment.': ['On to the next one!']
 }
-
-// Returns the correct case depending on number of red vs green checks
 
 // calculates score based on given data set
 const getScore = data => {
@@ -236,8 +240,7 @@ const getScore = data => {
 // returns output message based on given score
 const outputMessage = score => {
   const { req, output } = score
-  if (!req.total && !output.total)
-    return 'No checks on this assignment.'
+  if (!req.total && !output.total) return 'No checks on this assignment.'
   if (req.pass === req.total && output.pass === output.total)
     return 'You have all green checks!'
   if (!req.pass && !output.pass) return 'You have all red checks.'
