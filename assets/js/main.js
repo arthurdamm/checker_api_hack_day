@@ -56,7 +56,7 @@ $(function() {
             /* Append data to task list element */
             $('.task_button').each(function(index) {
               if ($(this).attr('task-id') === data.task_id.toString()) {
-                const msgStr = whatMessage(data)
+                const msgStr = outputMessage(getScore(data))
                 $(`.task_button[task-id=${taskId}]`)
                   .find('.lds-heart')
                   .hide()
@@ -210,14 +210,11 @@ const messageDict = {
   'You have one or more output red checks.': [
     'Did you think about all the edge cases? You can collaborate with your peers and change the main file provided as an example.',
     'Did you check if Valgrind passes with no memory leaks or errors (if applicable)?',
-    'Did you test your code in a container (if you have access to one, it is a great way of reproducing the checker environment)?'
-  ]
+    'Did you test your code in a container (if you have access to one, it is a great way of reproducing the checker environment)?'],
+  'No checks on this assignment.': ['On to the next one!']
 }
 
 // Returns the correct case depending on number of red vs green checks
-const whatMessage = data => {
-  return outputMessage(getScore(data))
-}
 
 // calculates score based on given data set
 const getScore = data => {
@@ -239,6 +236,10 @@ const getScore = data => {
 // returns output message based on given score
 const outputMessage = score => {
   const { req, output } = score
+  if (!req.total && !output.total)
+    return 'No checks on this assignment.'
+  if (req.pass === req.total && output.pass === output.total)
+    return 'You have all green checks!'
   if (!req.pass && !output.pass) return 'You have all red checks.'
   if (req.pass === 1 && !output.pass) return 'Only the first check is green.'
   if (req.pass === req.total && !output.pass)
@@ -247,6 +248,4 @@ const outputMessage = score => {
     return 'You have one or more requirement red checks.'
   if (req.pass === req.total && output.pass < output.total)
     return 'You have one or more output red checks.'
-  if (req.pass === req.total && output.pass === output.total)
-    return 'You have all green checks!'
 }
