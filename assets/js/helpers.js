@@ -66,7 +66,7 @@ export const pollResult = function(dataId, authToken) {
   $.ajax(apis.resultRequest(dataId, authToken)).done(function(data) {
     const { status, task_id } = data
     if (status !== "Done") {
-      setTimeout(pollResult(dataId, authToken), 4000)
+      setTimeout(() => pollResult(dataId, authToken), 2000)
     } else {
       $(".task-button").each(function() {
         if ($(this).attr("task-id") === task_id.toString()) {
