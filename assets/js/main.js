@@ -51,15 +51,15 @@ $(function() {
 
   // On-click handler for individual tasks
   $(document).on("click", ".task-button", function() {
-    correctionFunc($(this).attr("task-id"))
+    correctTask($(this).attr("task-id"))
   })
 
   // On-click handler for all tasks
   $(document).on("click", "#task-header", () => {
-    $(".task-button").each((i, e) => correctionFunc(e.getAttribute("task-id")))
+    $(".task-button").each((i, e) => correctTask(e.getAttribute("task-id")))
   })
 
-  const correctionFunc = taskId => {
+  const correctTask = taskId => {
     $.ajax(apis.correctionRequest(taskId, authToken)).done(data => {
       tasks[taskId] = data.id
 
