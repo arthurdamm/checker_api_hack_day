@@ -11,7 +11,6 @@ $(function() {
 
   // On-click handler for next button
   $(document).on("click", "input[value=Next]", () => {
-    $(".sign-in-fail, .project-search-box").hide()
     $(".validating-spinner").fadeOut(300, () =>
       $(".validating-spinner").fadeOut(300)
     )
