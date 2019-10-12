@@ -1,82 +1,82 @@
-import * as apis from "./apis.js"
+import * as apis from "./apis.js";
 
 // returns output message based on given score
 export const getOutputMessage = score => {
-  const { req, output } = score
-  if (!req.total && !output.total) return "No checks on this assignment."
+  const { req, output } = score;
+  if (!req.total && !output.total) return "No checks on this assignment.";
   if (req.pass === req.total && output.pass === output.total)
-    return "You have all green checks!"
-  if (!req.pass && !output.pass) return "You have all red checks."
-  if (req.pass === 1 && !output.pass) return "Only the first check is green."
+    return "You have all green checks!";
+  if (!req.pass && !output.pass) return "You have all red checks.";
+  if (req.pass === 1 && !output.pass) return "Only the first check is green.";
   if (req.pass === req.total && !output.pass)
-    return "All the output checks are red, but all the requirement checks are green."
+    return "All the output checks are red, but all the requirement checks are green.";
   if (req.pass < req.total && output.pass === output.total)
-    return "You have one or more requirement red checks."
+    return "You have one or more requirement red checks.";
   if (req.pass === req.total && output.pass < output.total)
-    return "You have one or more output red checks."
-}
+    return "You have one or more output red checks.";
+};
 
 // calculates score based on given data set
 export const getScore = data => {
   return data.result_display.checks.reduce(
     (obj, el) => {
       if (el.check_label === "requirement") {
-        obj.req.total++
-        el.passed ? obj.req.pass++ : null
+        obj.req.total++;
+        el.passed ? obj.req.pass++ : null;
       } else if (el.check_label === "code") {
-        obj.output.total++
-        el.passed ? obj.output.pass++ : null
+        obj.output.total++;
+        el.passed ? obj.output.pass++ : null;
       }
-      return obj
+      return obj;
     },
     { req: { total: 0, pass: 0 }, output: { total: 0, pass: 0 } }
-  )
-}
+  );
+};
 
 export const populateTasks = data => {
-  $(".project-container").show()
-  $(".invalid-project").hide()
+  $(".project-container").show();
+  $(".invalid-project").hide();
   $(".tasks-container")
     .empty()
     .append(
       `<button class="list-group-item list-group-item-action active" type="button" id="task-header"><h3>${data.name}</h3></button>`
-    )
+    );
   data.tasks.forEach(({ id, title }, i) => {
     $(".tasks-container").append(
       `<button type="button" class="list-group-item list-group-item-action task-button" task-id='${id}'><h4><u>${i++}. ${title}</u></h4><div style="float: right; display: none;" class="lds-heart"><div></div></div></button>`
-    )
-  })
-}
+    );
+  });
+};
 
 export const collectData = data => {
-  const requirements = []
-  const outputs = []
+  const requirements = [];
+  const outputs = [];
   data.result_display.checks.forEach(({ check_label, passed }) => {
     check_label === "requirement"
       ? requirements.push(passed)
-      : outputs.push(passed)
-  })
+      : outputs.push(passed);
+  });
   return {
     reqStr: requirements.map(x => (x ? "✅" : "❌")).join(""),
     outStr: outputs.map(x => (x ? "✅" : "❌")).join("")
-  }
-}
+  };
+};
 
 export const pollResult = function(dataId, authToken) {
   $.ajax(apis.resultRequest(dataId, authToken)).done(function(data) {
-    const { status, task_id } = data
+    const { status, task_id } = data;
     if (status !== "Done") {
-      setTimeout(() => pollResult(dataId, authToken), 2000)
+      setTimeout(() => pollResult(dataId, authToken), 2000);
     } else {
       $(".task-button").each(function() {
         if ($(this).attr("task-id") === task_id.toString()) {
-          clearContainer(task_id)
-          populateResults(data, $(this))
+          clearContainer(task_id);
+          populateResults(data, $(this));
         }
-      })
+      });
     }
-  })
-}
+  });
+};
 
 const clearContainer = taskId => {
   $(`.task-button[task-id=${taskId}]`)
@@ -85,25 +85,25 @@ const clearContainer = taskId => {
     .children(".results")
     .remove()
     .children(".msg")
-    .remove()
-}
+    .remove();
+};
 
 const populateResults = (data, ele) => {
-  const msgStr = getOutputMessage(getScore(data))
-  const { reqStr, outStr } = collectData(data)
+  const msgStr = getOutputMessage(getScore(data));
+  const { reqStr, outStr } = collectData(data);
   ele
     .append(`<div class="results"><i>Requirements:</i> ${reqStr}</div>`)
     .append(`<div class="results"><i>Outputs:</i> ${outStr}</div>`)
-    .append(`<h4 class="msg">${msgStr}</h4>`)
+    .append(`<h4 class="msg">${msgStr}</h4>`);
   if (msgStr === "You have all green checks!") {
-    const randInt = Math.floor(Math.random() * messages[msgStr].length)
-    ele.append(`<p class="msg">\t${messages[msgStr][randInt]}</p>`)
+    const randInt = Math.floor(Math.random() * messages[msgStr].length);
+    ele.append(`<p class="msg">\t${messages[msgStr][randInt]}</p>`);
   } else {
     messages[msgStr].forEach(elem => {
-      ele.append(`<p class="msg">\t${elem}</p>`)
-    })
+      ele.append(`<p class="msg">\t${elem}</p>`);
+    });
   }
-}
+};
 
 const messages = {
   "You have all green checks!": [
@@ -138,6 +138,6 @@ const messages = {
     "Did you test your code in a container (if you have access to one, it is a great way of reproducing the checker environment)?"
   ],
   "No checks on this assignment.": ["On to the next one!"]
-}
+};
 
-export default messages
+export default messages;
