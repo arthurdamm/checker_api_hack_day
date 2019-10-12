@@ -2,7 +2,6 @@ import * as apis from "./apis.js"
 import { pollResult, populateTasks } from "./helpers.js"
 
 let authToken = ""
-const tasks = []
 
 $(function() {
   $(
@@ -59,13 +58,11 @@ $(function() {
   })
 
   const correctTask = taskId => {
-    $.ajax(apis.correctionRequest(taskId, authToken)).done(data => {
-      tasks[taskId] = data.id
-
+    $.ajax(apis.correctionRequest(taskId, authToken)).done(({ id }) => {
       $(`.task-button[task-id=${taskId}]`)
         .find(".lds-heart")
         .show()
-      pollResult(data.id, authToken)
+      pollResult(id, authToken)
     })
   }
 })
