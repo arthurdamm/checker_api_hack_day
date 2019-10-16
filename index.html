@@ -109,18 +109,20 @@
 									</div>
 									<div class="tab-pane" id="account">
 										<div class="row">
-											<div id="validating" class="col-sm-4 col-sm-offset-4">
-												<h5 class="info-text"> Validating... </h5>
-												<div class="lds-heart">
-													<div></div>
+											<div class="validating-spinner">
+												<div class="col-sm-4 col-sm-offset-4">
+													<h5 class="info-text"> Validating... </h5>
+													<div class="lds-heart">
+														<div></div>
+													</div>
 												</div>
 											</div>
-											<div id="failing">
+											<div class="sign-in-fail">
 												<button type="button" class="btn btn-danger" id="danger">Authorization
 													failed!</button>
 												<h5 class="info-text">Please try again!</h5>
 											</div>
-											<div id="showing">
+											<div class="project-search-box">
 												<h5 class="info-text"> Project number? </h5>
 												<div class="row">
 													<div class="col-sm-4 col-sm-offset-4">
@@ -135,7 +137,7 @@
 									</div>
 									<div class="tab-pane" id="address">
 										<div class="row">
-											<div id="failing-project">
+											<div class="invalid-project">
 												<button type="button" class="btn btn-danger" id="danger-project">Invalid
 													Project ID!</button>
 												<h5 class="info-text">Please try again!</h5>
@@ -143,9 +145,8 @@
 											<div class="col-sm-12 project-container">
 												<h5 class="info-text"> Click on individual tasks to check them or the
 													project title to checker them all!</h5>
-												<div class="tasks_container">
-													<button class="list-group-item list-group-item-action active"
-														id="task_header" type="button"></button>
+												<div class="tasks-container">
+													<button class="list-group-item list-group-item-action active" type="button" id="task-header"></button>
 												</div>
 											</div>
 										</div>
@@ -181,7 +182,7 @@
 
 <!--   Core JS Files   -->
 <script src="assets/js/jquery-2.2.4.min.js" type="text/javascript"></script>
-<script src="assets/js/main.js" type="text/javascript"></script>
+<script src="assets/js/main.js" type="module"></script>
 <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="assets/js/jquery.bootstrap.wizard.js" type="text/javascript"></script>
 <script src="assets/js/jquery.validate.min.js" type="text/javascript"></script>
