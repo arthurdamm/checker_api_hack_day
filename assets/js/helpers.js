@@ -92,6 +92,7 @@ const populateResults = (data, ele) => {
   const msgStr = getOutputMessage(getScore(data));
   const { reqStr, outStr } = collectData(data);
   ele
+    .append(`<div class="timestamp">${Date().substr(0, 24)}</div><br />`)
     .append(`<div class="results"><i>Requirements:</i> ${reqStr}</div>`)
     .append(`<div class="results"><i>Outputs:</i> ${outStr}</div>`)
     .append(`<h4 class="msg">${msgStr}</h4>`);
